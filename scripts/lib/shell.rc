@@ -1,5 +1,5 @@
 parse_git_branch() {
-    git branch
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(git::\1)/'
 }
 
 parse_venv() {
@@ -13,4 +13,4 @@ parse_venv() {
 }
 
 echo "git_brach: $(parse_git_branch)"
-PS1="($(parse_venv))($(parse_git_branch))"
+PS1="($(parse_venv)) \w/ \$(parse_git_branch)> "
