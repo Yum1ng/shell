@@ -1,0 +1,16 @@
+parse_git_branch() {
+    git branch
+}
+
+parse_venv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # get the env name
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        venv=""
+    fi
+    [[ -n "$venv" ]] && echo "$venv"
+}
+
+echo "git_brach: $(parse_git_branch)"
+PS1="($(parse_venv))($(parse_git_branch))"
